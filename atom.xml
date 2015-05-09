@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[zhyu's blog]]></title>
+  <subtitle><![CDATA[社会が必ず正しいわけじゃない。だからこそ、私たちは正しく生きなければならない]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://zhyu.me/"/>
+  <updated>2015-05-09T14:15:40.000Z</updated>
+  <id>http://zhyu.me/</id>
+  
+  <author>
+    <name><![CDATA[zhyu]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[[LeetCode] Isomorphic Strings]]></title>
+    <link href="http://zhyu.me/2015/05/09/LeetCode-Isomorphic-Strings/"/>
+    <id>http://zhyu.me/2015/05/09/LeetCode-Isomorphic-Strings/</id>
+    <published>2015-05-09T14:04:11.000Z</published>
+    <updated>2015-05-09T14:15:40.000Z</updated>
+    <content type="html"><![CDATA[<p><a href="https://leetcode.com/problems/isomorphic-strings" target="_blank" rel="external">https://leetcode.com/problems/isomorphic-strings</a></p>
+<h2 id="题目">题目</h2><hr>
+<p>判断两个字符串 s 和 t 是否同构。<br>同构的定义是存在一个函数 f 是 s 到 t 的双射。</p>
+<h2 id="解法">解法</h2><hr>
+<p>根据双射的定义直接模拟。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># @param &#123;string&#125; s</span></span><br><span class="line">    <span class="comment"># @param &#123;string&#125; t</span></span><br><span class="line">    <span class="comment"># @return &#123;boolean&#125;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isIsomorphic</span><span class="params">(self, s, t)</span>:</span></span><br><span class="line">        d1 = &#123;&#125;</span><br><span class="line">        d2 = &#123;&#125;</span><br><span class="line">        <span class="keyword">return</span> all(d1.setdefault(i, j) == j <span class="keyword">and</span> d2.setdefault(j, i) == i</span><br><span class="line">                   <span class="keyword">for</span> i, j <span class="keyword">in</span> zip(s, t))</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2><hr>
+<p>Python 的 dict 提供了 setdefault 函数，可以极为方便的解决，所以简单记录一下。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[https://leetcode.com/problems/isomorphic-strings]]>
+    
+    </summary>
+    
+      <category term="Python" scheme="http://zhyu.me/tags/Python/"/>
+    
+      <category term="LeetCode" scheme="http://zhyu.me/categories/LeetCode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Google Code Jam 2015 Round 1A Problem C]]></title>
+    <link href="http://zhyu.me/2015/04/24/Google-Code-Jam-2015-Round-1A-Problem-C/"/>
+    <id>http://zhyu.me/2015/04/24/Google-Code-Jam-2015-Round-1A-Problem-C/</id>
+    <published>2015-04-24T02:59:24.000Z</published>
+    <updated>2015-05-09T13:59:53.000Z</updated>
+    <content type="html"><![CDATA[<p><a href="https://code.google.com/codejam/contest/4224486/dashboard#s=p2" target="_blank" rel="external">https://code.google.com/codejam/contest/4224486/dashboard#s=p2</a></p>
+<h2 id="题目">题目</h2><hr>
+<p>平面上有 N 个点，给出每个点的坐标 (X[i], Y[i])。</p>
+<p>求对于每个点来说，使之成为凸包边界上的点，需要最少删掉几个点。</p>
+<h2 id="解法">解法</h2><hr>
+<p>以每个目标点为中心，使用环形扫描线求解。扫描线相当于枚举了删掉点后，目标点所在的凸包的边。<br>这条边将平面分为两部分，点的数量较少的一部分就是答案。</p>
+<p>实际实现的时候可以先以目标点为中心，对其他所有点极角排序，枚举要删掉部分的点。<br>由于采用了环形扫描线，所以枚举部分可以 O(N) 完成。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> atan2, pi</span><br><span class="line"></span><br><span class="line">EPS = <span class="number">1e-7</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> cas <span class="keyword">in</span> xrange(int(raw_input())):</span><br><span class="line">    n = int(raw_input())</span><br><span class="line">    p = [tuple(map(float, raw_input().split())) <span class="keyword">for</span> _ <span class="keyword">in</span> xrange(n)]</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'Case #&#123;0&#125;:'</span>.format(cas+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> xrange(n):</span><br><span class="line">        p[i], p[<span class="number">0</span>] = p[<span class="number">0</span>], p[i]</span><br><span class="line">        a = sorted(map(<span class="keyword">lambda</span> pp: atan2(pp[<span class="number">1</span>]-p[<span class="number">0</span>][<span class="number">1</span>], pp[<span class="number">0</span>]-p[<span class="number">0</span>][<span class="number">0</span>]), p[<span class="number">1</span>:]))</span><br><span class="line">        a.extend(map(<span class="keyword">lambda</span> aa: aa+<span class="number">2</span>*pi, a))</span><br><span class="line">        res = n-<span class="number">1</span></span><br><span class="line">        l = r = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> xrange(n-<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">while</span> l+<span class="number">1</span> &lt; <span class="number">2</span>*(n-<span class="number">1</span>) <span class="keyword">and</span> a[l]-a[j] &lt; EPS:</span><br><span class="line">                l += <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> r &lt; <span class="number">2</span>*(n-<span class="number">1</span>) <span class="keyword">and</span> a[r]-a[j] &lt; pi-EPS:</span><br><span class="line">                r += <span class="number">1</span></span><br><span class="line">            res = min(res, r-l)</span><br><span class="line">        <span class="keyword">print</span> res</span><br><span class="line">        p[i], p[<span class="number">0</span>] = p[<span class="number">0</span>], p[i]</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2><hr>
+<p>比第二题更容易想到思路，但是好久没写几何题了，比赛时候没能好好写出来。。<br>合宿的时候抽空做 GCJ 也就只能这样了，还是希望能有时间好好在家做啊。。。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[https://code.google.com/codejam/contest/4224486/dashboard#s=p2]]>
+    
+    </summary>
+    
+      <category term="扫描线" scheme="http://zhyu.me/tags/%E6%89%AB%E6%8F%8F%E7%BA%BF/"/>
+    
+      <category term="排序" scheme="http://zhyu.me/tags/%E6%8E%92%E5%BA%8F/"/>
+    
+      <category term="GCJ" scheme="http://zhyu.me/categories/GCJ/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Google Code Jam 2015 Round 1A Problem B]]></title>
+    <link href="http://zhyu.me/2015/04/23/Google-Code-Jam-2015-Round-1A-Problem-B/"/>
+    <id>http://zhyu.me/2015/04/23/Google-Code-Jam-2015-Round-1A-Problem-B/</id>
+    <published>2015-04-23T05:53:49.000Z</published>
+    <updated>2015-05-09T13:59:53.000Z</updated>
+    <content type="html"><![CDATA[<p><a href="https://code.google.com/codejam/contest/4224486/dashboard#s=p1" target="_blank" rel="external">https://code.google.com/codejam/contest/4224486/dashboard#s=p1</a></p>
+<h2 id="题目">题目</h2><hr>
+<p>有 B 家理发店。理发店都在时刻 0 开店服务，每家店可以在 m[i] 的时间里给一个人理发。</p>
+<p>所有客人排成一队，依次进入空着的理发店。同时有多家理发店空着的情况下，选择序号较小的一家。</p>
+<p>问排在队列里第 n 个人会进入哪家理发店。</p>
+<h2 id="解法">解法</h2><hr>
+<ul>
+<li>小数据<br>很显然人对理发店的选择情况会以 lcm(m[i]) 的时间间隔进行循环，则循环节长度为 sum(m[i] / lcm(m[i]))。<br>由于只有 5 家理发店，m[i] 不超过 25，循环节长度远比 n 要小，所以可以直接取模以后用堆模拟。</li>
+<li>大数据<br>理发店数量达到了 1000，m[i] 上限则是 100000，循环节可能远大于 n，模拟是行不通了。<br>于是考虑先求出第 n 个人进入理发店的时间 t，再计算进入的理发店的序号。<br>由于截止到时间 t，进入理发店的总人数 f(t) = sum(t/m[i]+1)，所以第 n 个人进入理发店的时间可以二分求出。<br>由于在时间 t 之前进入理发店的总人数为 n-f(t-1)，那么之后满足 t%m[i]==0 的第 n-f(t-1) 家理发店就是答案。</li>
+</ul>
+<p>这里只发大数据的代码</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> cas <span class="keyword">in</span> xrange(int(raw_input())):</span><br><span class="line">    b, n = map(int, raw_input().split())</span><br><span class="line">    m = map(int, raw_input().split())</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_sum</span><span class="params">(k)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> k &lt;= <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> reduce(<span class="keyword">lambda</span> x, y: k/y+<span class="number">1</span>+x, m, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    tt = (<span class="number">2</span> ** <span class="number">47</span>) - <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> reversed(xrange(<span class="number">47</span>)):</span><br><span class="line">        <span class="keyword">if</span> get_sum(tt-(<span class="number">1</span> &lt;&lt; i)) &gt;= n:</span><br><span class="line">            tt -= <span class="number">1</span> &lt;&lt; i</span><br><span class="line">    n -= get_sum(tt-<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> xrange(b):</span><br><span class="line">        <span class="keyword">if</span> tt % m[i] == <span class="number">0</span>:</span><br><span class="line">            n -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> n == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">print</span> <span class="string">'Case #&#123;0&#125;: &#123;1&#125;'</span>.format(cas+<span class="number">1</span>, i+<span class="number">1</span>)</span><br><span class="line">                <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2><hr>
+<p>第一题都用二分硬搞了，第二题居然没想到二分，真是太蠢了。。。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[https://code.google.com/codejam/contest/4224486/dashboard#s=p1]]>
+    
+    </summary>
+    
+      <category term="二分" scheme="http://zhyu.me/tags/%E4%BA%8C%E5%88%86/"/>
+    
+      <category term="GCJ" scheme="http://zhyu.me/categories/GCJ/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Google Code Jam 2015 Round 1A Problem A]]></title>
+    <link href="http://zhyu.me/2015/04/22/google-code-jam-2015-round-1a-problem-a/"/>
+    <id>http://zhyu.me/2015/04/22/google-code-jam-2015-round-1a-problem-a/</id>
+    <published>2015-04-22T06:25:00.000Z</published>
+    <updated>2015-05-09T13:59:53.000Z</updated>
+    <content type="html"><![CDATA[<p><a href="https://code.google.com/codejam/contest/4224486/dashboard#s=p0" target="_blank" rel="external">https://code.google.com/codejam/contest/4224486/dashboard#s=p0</a></p>
+<h2 id="题目">题目</h2><hr>
+<p>Kaylin 喜欢吃蘑菇，Bartholomew 可以在任意时间给 Kaylin 面前的盘子里放入任意数量的蘑菇。</p>
+<p>已知一定时间间隔下，盘子里蘑菇的数量。<br>而 Kaylin 有以下 2 种吃蘑菇的策略，分别求这 2 种策略下 Kaylin 吃的蘑菇数量的最小值。</p>
+<ol>
+<li>每次吃盘子里有的任意数量的蘑菇</li>
+<li>每次吃固定数量的蘑菇</li>
+</ol>
+<h2 id="解法">解法</h2><hr>
+<ul>
+<li>策略 1 的情况下，可以自由的选择吃或者不吃，很明显直接贪心。<br>只有当下一个时间点的蘑菇数量比现在的蘑菇数量少的时候才吃。</li>
+<li>策略 2 的情况下，要最小化吃的蘑菇的总量，就要最小化每次吃的蘑菇数量。<br>对于时间点 i 和 i+1 而言，满足要求的最小吃的蘑菇数量为 k = max(m[i]-m[i+1], 0)。<br>因为盘子空了就没得吃了，所以答案是 sum(min(k, m[i]))。</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> cas <span class="keyword">in</span> xrange(int(raw_input())):</span><br><span class="line">    n = int(raw_input())</span><br><span class="line">    m = map(int, raw_input().split())</span><br><span class="line">    k = res1 = res2 = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> xrange(n-<span class="number">1</span>):</span><br><span class="line">        res1 += max(m[i]-m[i+<span class="number">1</span>], <span class="number">0</span>)</span><br><span class="line">        k = max(k, max(m[i]-m[i+<span class="number">1</span>], <span class="number">0</span>))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> xrange(n-<span class="number">1</span>):</span><br><span class="line">        res2 += min(k, m[i])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'Case #&#123;0&#125;: &#123;1&#125; &#123;2&#125;'</span>.format(cas+<span class="number">1</span>, res1, res2)</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2><hr>
+<p>题挺简单的，就是题意太难理解。。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[https://code.google.com/codejam/contest/4224486/dashboard#s=p0]]>
+    
+    </summary>
+    
+      <category term="贪心" scheme="http://zhyu.me/tags/%E8%B4%AA%E5%BF%83/"/>
+    
+      <category term="GCJ" scheme="http://zhyu.me/categories/GCJ/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Homebrew 安装 nginx-full]]></title>
+    <link href="http://zhyu.me/2014/12/08/Homebrew-%E5%AE%89%E8%A3%85-nginx-full/"/>
+    <id>http://zhyu.me/2014/12/08/Homebrew-安装-nginx-full/</id>
+    <published>2014-12-08T07:08:00.000Z</published>
+    <updated>2015-05-09T13:59:53.000Z</updated>
+    <content type="html"><![CDATA[<p>工作原因，需要用到 nginx 的 GeoIP 模块，Homebrew 默认安装的 nginx 是没有编译这个模块的，于是就毫无悬念的挂了w</p>
+<p>首先查看一下可选的编译参数<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew options nginx</span><br></pre></td></tr></table></figure></p>
+<p>输出结果如下：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">--with-debug</span><br><span class="line">        Compile with support <span class="keyword">for</span> debug <span class="built_in">log</span></span><br><span class="line">--with-gunzip</span><br><span class="line">        Compile with support <span class="keyword">for</span> gunzip module</span><br><span class="line">--with-passenger</span><br><span class="line">        Compile with support <span class="keyword">for</span> Phusion Passenger module</span><br><span class="line">--with-spdy</span><br><span class="line">        Compile with support <span class="keyword">for</span> SPDY module</span><br><span class="line">--with-webdav</span><br><span class="line">        Compile with support <span class="keyword">for</span> WebDAV module</span><br><span class="line">--devel</span><br><span class="line">        install development version <span class="number">1.7</span>.<span class="number">7</span></span><br><span class="line">--HEAD</span><br><span class="line">        install HEAD version</span><br></pre></td></tr></table></figure></p>
+<p>可以看到可选的编译参数里没有 GeoIP 模块，那么如果还想用 Homebrew 来安装 nginx，就只有自己修改默认的 Formula 来添加参数，或者使用其他人修改好后共享的 Formula 了。</p>
+<p>考虑到之后可能还会用到其他模块，我就没有自己创建 Formula，而是找到了 <a href="https://github.com/Homebrew/homebrew-nginx" target="_blank" rel="external">homebrew/nginx</a> 这个 tap。</p>
+<p>首先给 Homebrew 添加这个 tap：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew tap homebrew/nginx</span><br></pre></td></tr></table></figure></p>
+<p>再查看一下可选参数：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew options nginx-full</span><br></pre></td></tr></table></figure></p>
+<p>可以在结果中看到有 GeoIP 模块：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--with-geoip</span><br><span class="line">        Build with geoip support</span><br></pre></td></tr></table></figure></p>
+<p>这样就可以安装有 GeoIP 模块的 nginx 了：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install nginx-full --with-geoip</span><br></pre></td></tr></table></figure></p>
+<p>不只是 GeoIP 模块，其他可选模块也可以用同样方法添加w</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[Homebrew 默认安装的 nginx 只要很少的编译参数可供选择，在需要设置一些高级参数时， 可以通过添加 homebrew/nginx 这个 tap，安装 nginx-full 来解决。]]>
+    
+    </summary>
+    
+      <category term="Homebrew" scheme="http://zhyu.me/tags/Homebrew/"/>
+    
+      <category term="nginx" scheme="http://zhyu.me/tags/nginx/"/>
+    
+      <category term="技术笔记" scheme="http://zhyu.me/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[MongoDB 遇到 std::runtime_error]]></title>
+    <link href="http://zhyu.me/2014/10/13/MongoDB-%E9%81%87%E5%88%B0-std-runtime-error/"/>
+    <id>http://zhyu.me/2014/10/13/MongoDB-遇到-std-runtime-error/</id>
+    <published>2014-10-13T10:38:28.000Z</published>
+    <updated>2015-05-09T13:59:53.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="问题描述">问题描述</h2><hr>
+<p>在使用 mongorestore 或者 mongodump 进行数据导入导出的时候，可能会遇到 std::runtime_error 错误并终止。详细错误信息如下：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">terminate called after throwing an instance of <span class="string">'std::runtime_error'</span></span><br><span class="line">what(): locale::facet::_S_create_c_locale name not valid</span><br><span class="line">Aborted</span><br></pre></td></tr></table></figure></p>
+<h2 id="分析与解决">分析与解决</h2><hr>
+<p>实际上这不是 Mongodb 自身的问题，而是其依赖的 Boost 库的问题，是 locale 相关的环境变量没有设置或者设置有错导致的。不仅是 MongoDB，其他依赖 Boost 库的程序也可能遇到同样的问题。</p>
+<p>执行以下命令可以解决：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> LC_ALL=<span class="string">"en_US.UTF-8"</span></span><br></pre></td></tr></table></figure>或者<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> LC_ALL=C</span><br></pre></td></tr></table></figure></p>
+<h2 id="相关阅读">相关阅读</h2><hr>
+<ul>
+<li><a href="https://svn.boost.org/trac/boost/ticket/4688" target="_blank" rel="external">Boost Ticket #4688</a></li>
+<li><a href="http://stackoverflow.com/questions/19100708/mongodb-mongorestore-failure-localefacet-s-create-c-locale-name-not-valid" target="_blank" rel="external">MongoDB mongorestore failure</a></li>
+<li><a href="https://groups.google.com/forum/#!topic/mongodb-user/vJpJNzCareY" target="_blank" rel="external">mongodump crashing</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[在使用 mongorestore 或者 mongodump 进行数据导入导出的时候，可能会遇到 std::runtime_error 错误并终止。其实这是 MongoDB 依赖的 Boost 库的问题所导致的。]]>
+    
+    </summary>
+    
+      <category term="MongoDB" scheme="http://zhyu.me/tags/MongoDB/"/>
+    
+      <category term="技术笔记" scheme="http://zhyu.me/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[New Blog, New Start]]></title>
+    <link href="http://zhyu.me/2014/10/10/New-Blog-New-Start/"/>
+    <id>http://zhyu.me/2014/10/10/New-Blog-New-Start/</id>
+    <published>2014-10-10T07:28:42.000Z</published>
+    <updated>2015-05-09T13:59:53.000Z</updated>
+    <content type="html"><![CDATA[<p>因为种种原因，以前的 Blog 死掉啦。现在这个新 Blog 从 WordPress 换到了 Hexo，就以这个新 Blog 做一个新的开始吧~</p>
+<p>因为一直想换静态 Blog 试试看，所以事前稍微做了下调查。于是找到了 <a href="https://staticsitegenerators.net/" target="_blank" rel="external">Static Site Generators</a>。</p>
+<p>考虑到遇到问题需要修改或者需要定制功能的情况，Blog 引擎的语言自然是越熟悉越好。</p>
+<p>首选当然是基于我最喜欢的 Python 的 <a href="http://blog.getpelican.com/" target="_blank" rel="external">Pelican</a> 啦，可惜随着文章多起来，编译的速度似乎不太理想，最受欢迎的 <a href="http://jekyllrb.com/" target="_blank" rel="external">Jekyll</a> 似乎也有同样的问题呢。语言性能的问题也是没办法啦。。。</p>
+<p>之后在用 JavaScript 写的 <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>、CoffeeScript 写的 <a href="https://docpad.org/" target="_blank" rel="external">DocPad</a> 和 Go 写的 <a href="http://gohugo.io/" target="_blank" rel="external">Hugo</a> 之间纠结了一下。</p>
+<p>先是想试试 Hugo，似乎性能很好的样子，不过 Go 的 Template 实在是。。。</p>
+<p>至于Hexo 和 DocPad，二者都是跑在 Node.js 上的，所以性能也没什么问题啦。虽然对 CoffeeScript 有好感，但是 DocPad 的功能很多很强大，有点超出了我只是简单写写 Blog 的需求，于是就选定了 Hexo，现在感觉还不错w</p>
+<p>最后感谢帮我画了头像的妹子w</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[因为种种原因，以前的 Blog 死掉啦。现在这个新 Blog 从 WordPress 换到了 Hexo，就以这个新 Blog 做一个新的开始吧~]]>
+    
+    </summary>
+    
+      <category term="Hexo" scheme="http://zhyu.me/tags/Hexo/"/>
+    
+      <category term="生活随笔" scheme="http://zhyu.me/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+</feed>
