@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title><![CDATA[zhyu's blog]]></title>
-  <subtitle><![CDATA[社会が必ず正しいわけじゃない。だからこそ、私たちは正しく生きなければならない]]></subtitle>
+  <subtitle><![CDATA[There cannot be any hope for tomorrow, if we don't fight for today.]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://zhyu.me/"/>
   <updated>2015-05-09T14:15:40.000Z</updated>
